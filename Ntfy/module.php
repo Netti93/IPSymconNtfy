@@ -8,7 +8,7 @@ declare(strict_types=1);
 			//Never delete this line!
 			parent::Create();
 
-            $this->RegisterPropertyString('URL', '');
+            $this->RegisterPropertyString('URL', 'https://ntfy.sh');
             $this->RegisterPropertyBoolean('USE_TOKEN', false);
             $this->RegisterPropertyString('TOKEN', '');
             $this->RegisterPropertyString('USERNAME', '');
@@ -55,7 +55,7 @@ declare(strict_types=1);
 			*/
 
             curl_setopt_array($ch = curl_init(), [
-                CURLOPT_URL        => $this->BuildMessageURL(),
+                CURLOPT_URL        => $this->BuildMessageURL($topic),
                 CURLOPT_HTTPHEADER => ['Content-Type: text/plain'],
                 CURLOPT_POST       => true,
                 CURLOPT_POSTFIELDS => $message,
