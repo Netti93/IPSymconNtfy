@@ -33,7 +33,34 @@ declare(strict_types=1);
 			$use_auth = $this->ReadPropertyBoolean('USE_AUTH');
 			$use_token = $this->ReadPropertyBoolean('USE_TOKEN');
 
-			echo $use_auth;
+			echo 
+			'{
+				"elements": [
+					{ "type": "ValidationTextBox", "name": "URL", "caption": "Server URL (required)" },
+					{ "type": "CheckBox", "name": "USE_AUTH", "caption": "Use authentication", "onChange": "NTFY_UseAuthentication($id, $USE_AUTH);" },
+					{ "type": "ExpansionPanel", "name": "AUTH_PANEL", "caption": "Authentication", "visible": '.$use_auth.', "items":[
+							{ "type": "CheckBox", "name": "USE_TOKEN", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $USE_TOKEN);" },
+							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": '.$use_token.' },
+							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.!$use_token.' },
+							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.!$use_token.' }
+						]
+					}
+				],
+				"actions": [
+					{ "type": "ValidationTextBox", "name": "TOPIC", "caption": "Topic" },
+					{ "type": "Button", "caption": "Send test message",  "onClick": "if (NTFY_SendTestMessage($id, $TOPIC)) echo \'OK\'; else echo \'Error\';" }
+				],
+				"status": [
+					{ "code": 102, "icon": "active", "caption": "OK" },
+					{ "code": 201, "icon": "error", "caption": "An error occurred - please check the log" },
+					{ "code": 202, "icon": "error", "caption": "Invalid URL" },
+					{ "code": 203, "icon": "error", "caption": "Unauthorized" },
+					{ "code": 204, "icon": "error", "caption": "Forbidden" }
+				]
+			}';
+
+
+
 			
 			return 
 			'{
