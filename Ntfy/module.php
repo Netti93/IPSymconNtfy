@@ -35,6 +35,8 @@ declare(strict_types=1);
 
 			var_dump($use_auth);
 
+			return '{ "actions": [ { "type": "Label", "label": "The current time is '.date("d.m.y H:i").'" } ] }';
+/*
 			return 
 			'{
 				"elements": [
@@ -59,7 +61,7 @@ declare(strict_types=1);
 					{ "code": 203, "icon": "error", "caption": "Unauthorized" },
 					{ "code": 204, "icon": "error", "caption": "Forbidden" }
 				]
-			}';
+			}';*/
 		}
 
 		public function UseAuthentication(bool $status)
