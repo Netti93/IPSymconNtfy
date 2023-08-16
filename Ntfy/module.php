@@ -32,6 +32,8 @@ declare(strict_types=1);
 		{
 			$use_auth = $this->ReadPropertyBoolean('USE_AUTH');
 			$use_token = $this->ReadPropertyBoolean('USE_TOKEN');
+
+			echo $use_auth;
 			
 			return 
 			'{
