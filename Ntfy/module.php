@@ -43,7 +43,7 @@ declare(strict_types=1);
 					"type" => "CheckBox",
 					"name" => "UseAuth",
 					"caption" => "Use authentication",
-					"onChange" => "NTFY_UseAuthentication($id, $UseAuth);"
+					"onChange" => '"NTFY_UseAuthentication($id, $UseAuth);"'
 				]
 			];
 
