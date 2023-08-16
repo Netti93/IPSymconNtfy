@@ -146,9 +146,26 @@ declare(strict_types=1);
             return $this->SendMessageWithExtras($topic, $this->Translate('This is a test message from your Symcon instance'));
         }
 
-        public function SendMessageWithExtras(string $topic, string $message, string $title = "", int $priority = 0, array $extras = [])
+		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
+		{
+			return $this->SendMessageWithExtras($topic, $message, $title, $priority);
+		}
+
+        public function SendMessageWithExtras(string $topic, string $message, string $title = "", int $priority = 3, array $extras = [])
         {
-			$headers = ['Content-Type: text/plain'];
+			if($priority < 1)
+			{
+				$priority = 1;
+			} 
+			else if ($priotiy > 5)
+			{
+				$priority = 5;
+			}
+
+			$headers = [
+				"Content-Type: text/plain",
+				"Priority: $priority"
+			];
 
             curl_setopt_array($ch = curl_init(), [
                 CURLOPT_URL        => $this->BuildMessageURL($topic),
@@ -167,6 +184,10 @@ declare(strict_types=1);
 				{
 					curl_setopt($ch, CURLOPT_USERPWD, $this->ReadPropertyString('USERNAME').':'.$this->ReadPropertyString('PASSWORD'));
 				}
+			}
+
+			if($title !== "") {
+				$headers[] = "Title: $title";
 			}
 
 			// TODO: set Headers for fields in $extras
