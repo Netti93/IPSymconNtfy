@@ -1,0 +1,12 @@
+{
+    "id": "{0C9C5A90-D068-C4F9-7AF3-3006D71C1899}",
+    "name": "Ntfy",
+    "author": "Dominik Nett",
+    "url": "https://github.com/Netti93/IPSymconNtfy",
+    "compatibility": {
+        "version": "5.3"
+    },
+    "version": "1.0",
+    "build": 0,
+    "date": 0
+}
