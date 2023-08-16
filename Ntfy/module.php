@@ -9,7 +9,7 @@ declare(strict_types=1);
 			parent::Create();
 
             $this->RegisterPropertyString('URL', '');
-            $this->RegisterPropertyBoolean('USE_TOKEN', '');
+            $this->RegisterPropertyBoolean('USE_TOKEN', false);
             $this->RegisterPropertyString('TOKEN', '');
             $this->RegisterPropertyString('USERNAME', '');
             $this->RegisterPropertyString('PASSWORD', '');
