@@ -9,8 +9,8 @@ declare(strict_types=1);
 			parent::Create();
 
             $this->RegisterPropertyString('URL', 'https://ntfy.sh');
-            $this->RegisterPropertyBoolean('USE_AUTH', false);
-            $this->RegisterPropertyBoolean('USE_TOKEN', false);
+            $this->RegisterPropertyBoolean('UseAuth', false);
+            $this->RegisterPropertyBoolean('UseToken', false);
             $this->RegisterPropertyString('TOKEN', '');
             $this->RegisterPropertyString('USERNAME', '');
             $this->RegisterPropertyString('PASSWORD', '');
@@ -30,42 +30,16 @@ declare(strict_types=1);
 
 		public function GetConfigurationForm()
 		{
-			$use_auth = $this->ReadPropertyBoolean('USE_AUTH');
-			$use_token = $this->ReadPropertyBoolean('USE_TOKEN');
-			/*
-			return 
-			'{
-				"elements": [
-					{ "type": "ValidationTextBox", "name": "URL", "caption": "Server URL (required)" },
-					{ "type": "CheckBox", "name": "USE_AUTH", "caption": "Use authentication", "onChange": "NTFY_UseAuthentication($id, $USE_AUTH);" },
-					{ "type": "ExpansionPanel", "name": "AUTH_PANEL", "caption": "Authentication", "visible": false, "items":[
-							{ "type": "CheckBox", "name": "USE_TOKEN", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $USE_TOKEN);" },
-							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": false },
-							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": true },
-							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": true }
-						]
-					}
-				],
-				"actions": [
-					{ "type": "ValidationTextBox", "name": "TOPIC", "caption": "Topic" },
-					{ "type": "Button", "caption": "Send test message",  "onClick": "if (NTFY_SendTestMessage($id, $TOPIC)) echo \'OK\'; else echo \'Error\';" }
-				],
-				"status": [
-					{ "code": 102, "icon": "active", "caption": "OK" },
-					{ "code": 201, "icon": "error", "caption": "An error occurred - please check the log" },
-					{ "code": 202, "icon": "error", "caption": "Invalid URL" },
-					{ "code": 203, "icon": "error", "caption": "Unauthorized" },
-					{ "code": 204, "icon": "error", "caption": "Forbidden" }
-				]
-			}';*/
+			$use_auth = $this->ReadPropertyBoolean('UseAuth');
+			$use_token = $this->ReadPropertyBoolean('UseToken');
 
 			return 
 			'{
 				"elements": [
 					{ "type": "ValidationTextBox", "name": "URL", "caption": "Server URL (required)" },
-					{ "type": "CheckBox", "name": "USE_AUTH", "caption": "Use authentication", "onChange": "NTFY_UseAuthentication($id, $USE_AUTH);" },
-					{ "type": "ExpansionPanel", "name": "AUTH_PANEL", "caption": "Authentication", "visible": '.(bool) $use_auth.', "items":[
-							{ "type": "CheckBox", "name": "USE_TOKEN", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $USE_TOKEN);" },
+					{ "type": "CheckBox", "name": "UseAuth", "caption": "Use authentication", "onChange": "NTFY_UseAuthentication($id, $UseAuth);" },
+					{ "type": "ExpansionPanel", "name": "AUTHPANEL", "caption": "Authentication", "visible": '.(bool) $use_auth.', "items":[
+							{ "type": "CheckBox", "name": "UseToken", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $UseToken);" },
 							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": '.(bool) $use_token.' },
 							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.(bool) $use_token.' },
 							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.(bool) $use_token.' }
@@ -88,8 +62,8 @@ declare(strict_types=1);
 
 		public function UseAuthentication(bool $status)
 		{
-			$this->UpdateFormField("AUTH_PANEL", "visible", $status);
-			$this->UpdateFormField("AUTH_PANEL", "expanded", $status);
+			$this->UpdateFormField("AUTHPANEL", "visible", $status);
+			$this->UpdateFormField("AUTHPANEL", "expanded", $status);
 		}
 
 		public function ToggleUseToken(bool $status)
