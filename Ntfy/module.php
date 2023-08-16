@@ -50,6 +50,7 @@ declare(strict_types=1);
 					"name" => "AUTHPANEL",
 					"caption" => "Authentication",
 					"visible" => $useauth,
+					"expanded" => $useauth,
 					"items" => [
 						[
 							"type" => "CheckBox",
@@ -112,7 +113,7 @@ declare(strict_types=1);
 		public function UseAuthentication(bool $status)
 		{
 			$this->UpdateFormField("AUTHPANEL", "visible", $status);
-			$this->UpdateFormField("AUTHPANEL", "expanded", $status);
+			//$this->UpdateFormField("AUTHPANEL", "expanded", $status);
 		}
 
 		public function ToggleUseToken(bool $status)
