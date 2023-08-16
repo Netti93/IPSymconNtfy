@@ -28,9 +28,39 @@ declare(strict_types=1);
 			parent::ApplyChanges();
 		}
 
+		public function GetConfigurationForm()
+		{
+			return 
+			'{
+				"elements": [
+					{ "type": "ValidationTextBox", "name": "URL", "caption": "Server URL (required)" },
+					{ "type": "CheckBox", "name": "USE_AUTH", "caption": "Use authentication", "onChange": "NTFY_UseAuthentication($id, $USE_AUTH);" },
+					{ "type": "ExpansionPanel", "name": "AUTH_PANEL", "caption": "Authentication", "visible": '.$this->ReadPropertyString('USE_AUTH').', "items":[
+							{ "type": "CheckBox", "name": "USE_TOKEN", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $USE_TOKEN);" },
+							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": '.$this->ReadPropertyString('USE_TOKEN').' },
+							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.!$this->ReadPropertyString('USE_TOKEN').' },
+							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.!$this->ReadPropertyString('USE_TOKEN').' }
+						]
+					}
+				],
+				"actions": [
+					{ "type": "ValidationTextBox", "name": "TOPIC", "caption": "Topic" },
+					{ "type": "Button", "caption": "Send test message",  "onClick": "if (NTFY_SendTestMessage($id, $TOPIC)) echo \'OK\'; else echo \'Error\';" }
+				],
+				"status": [
+					{ "code": 102, "icon": "active", "caption": "OK" },
+					{ "code": 201, "icon": "error", "caption": "An error occurred - please check the log" },
+					{ "code": 202, "icon": "error", "caption": "Invalid URL" },
+					{ "code": 203, "icon": "error", "caption": "Unauthorized" },
+					{ "code": 204, "icon": "error", "caption": "Forbidden" }
+				]
+			}';
+		}
+
 		public function UseAuthentication(bool $status)
 		{
 			$this->UpdateFormField("AUTH_PANEL", "visible", $status);
+			$this->UpdateFormField("AUTH_PANEL", "expanded", $status);
 		}
 
 		public function ToggleUseToken(bool $status)
@@ -45,9 +75,9 @@ declare(strict_types=1);
             return rtrim($this->ReadPropertyString('URL'), '/').'/'.$topic;
         }
 
-        public function SendTestMessage()
+        public function SendTestMessage(string $topic)
         {
-            return $this->SendMessageWithExtras($this->Translate('Test message'), $this->Translate('This is a test message from your Symcon instance'));
+            return $this->SendMessageWithExtras($topic, $this->Translate('This is a test message from your Symcon instance'));
         }
 
         public function SendMessageWithExtras(string $topic, string $message, string $title = "", int $priority = 0, array $extras = [])
