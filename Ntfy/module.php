@@ -30,19 +30,19 @@ declare(strict_types=1);
 
 		public function GetConfigurationForm()
 		{
-			$use_auth = $this->ReadPropertyBoolean('UseAuth') ?? false;
-			$use_token = $this->ReadPropertyBoolean('UseToken') ?? false;
+			$useauth = $this->ReadPropertyBoolean('UseAuth');
+			$usetoken = $this->ReadPropertyBoolean('UseToken');
 
 			return 
 			'{
 				"elements": [
 					{ "type": "ValidationTextBox", "name": "URL", "caption": "Server URL (required)" },
 					{ "type": "CheckBox", "name": "UseAuth", "caption": "Use authentication", "onChange": "NTFY_UseAuthentication($id, $UseAuth);" },
-					{ "type": "ExpansionPanel", "name": "AUTHPANEL", "caption": "Authentication", "visible": '.(bool) $use_auth.', "items":[
+					{ "type": "ExpansionPanel", "name": "AUTHPANEL", "caption": "Authentication", "visible": '.$useauth.', "items":[
 							{ "type": "CheckBox", "name": "UseToken", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $UseToken);" },
-							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": '.(bool) $use_token.' },
-							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.(bool) $use_token.' },
-							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.(bool) $use_token.' }
+							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": '.$usetoken.' },
+							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.!$usetoken.' },
+							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.!$usetoken.' }
 						]
 					}
 				],
