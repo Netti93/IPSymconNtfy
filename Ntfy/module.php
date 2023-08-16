@@ -79,6 +79,47 @@ declare(strict_types=1);
 				]
 			];
 
+			$form['actions'] = [
+				[
+					"type" => "ValidationTextBox",
+					"name" => "TOPIC",
+					"caption" => "Topic"
+				],
+				[
+					"type" => "Button",
+					"caption" => "Send test message",
+					"onClick" => 'if (NTFY_SendTestMessage($id, $TOPIC)) echo "OK"; else echo "Error";'
+				]
+			];
+
+			$form['status'] = [
+				[
+					"code" => "102",
+					"icon" => "active",
+					"caption" => "OK"
+				],
+				[
+					"code" => "201",
+					"icon" => "error",
+					"caption" => "An error occurred - please check the log"
+				],
+				[
+					"code" => "202",
+					"icon" => "error",
+					"caption" => "Invalid URL"
+				],
+				[
+					"code" => "203",
+					"icon" => "error",
+					"caption" => "Unauthorized"
+				],
+				[
+					"code" => "204",
+					"icon" => "error",
+					"caption" => "Forbidden"
+				]
+			]
+
 			return json_encode($form);
 		}
 
