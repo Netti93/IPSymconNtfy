@@ -55,7 +55,7 @@ declare(strict_types=1);
 							"type" => "CheckBox",
 							"name" => "USETOKEN",
 							"caption" => "Use Token instead of credentials",
-							"onChange" => '"NTFY_ToggleUseToken($id, $UseToken);"'
+							"onChange" => '"NTFY_ToggleUseToken($id, $USETOKEN);"'
 						],
 						[
 							"type" => "PasswordTextBox",
