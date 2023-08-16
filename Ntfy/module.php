@@ -194,7 +194,7 @@ declare(strict_types=1);
             curl_close($ch);
 
             $responseObject = json_decode($response);
-            if (property_exists($responseObject, 'appid')) {
+            if (property_exists($responseObject, 'id')) {
                 $this->SetStatus(102);
 
                 return true;
