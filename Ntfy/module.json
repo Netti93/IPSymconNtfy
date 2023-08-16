@@ -1,0 +1,12 @@
+{
+    "id": "{0D3A1E8F-EF9A-78E1-7279-8B034F033765}",
+    "name": "Ntfy",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "NTFY",
+    "url": "https://github.com/Netti93/IPSymconNtfy/blob/main/Ntfy/README.md"
+}
