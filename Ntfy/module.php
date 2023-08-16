@@ -8,6 +8,8 @@ declare(strict_types=1);
 			//Never delete this line!
 			parent::Create();
 
+			$this->GetConfigurationForm();
+
             $this->RegisterPropertyString('URL', 'https://ntfy.sh');
             $this->RegisterPropertyBoolean('USE_AUTH', false);
             $this->RegisterPropertyBoolean('USE_TOKEN', false);
