@@ -43,7 +43,7 @@ declare(strict_types=1);
 					"type" => "CheckBox",
 					"name" => "USEAUTH",
 					"caption" => "Use authentication",
-					"onChange" => '"NTFY_UseAuthentication($id, $USEAUTH);"'
+					"onChange" => 'NTFY_UseAuthentication($id, $USEAUTH);'
 				],
 				[
 					"type" => "ExpansionPanel",
@@ -55,7 +55,7 @@ declare(strict_types=1);
 							"type" => "CheckBox",
 							"name" => "USETOKEN",
 							"caption" => "Use Token instead of credentials",
-							"onChange" => '"NTFY_ToggleUseToken($id, $USETOKEN);"'
+							"onChange" => 'NTFY_ToggleUseToken($id, $USETOKEN);'
 						],
 						[
 							"type" => "PasswordTextBox",
