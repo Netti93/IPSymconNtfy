@@ -172,10 +172,11 @@ declare(strict_types=1);
 			// TODO: set Headers for fields in $extras
 			//curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Title: Dies ist ein Titel');
 
-			print_r($headers);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 			$response = curl_exec($ch);
+
+			print_r($response);
 
             // Check for errors and display the error message
             if (!$response) {
