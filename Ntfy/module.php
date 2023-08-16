@@ -45,7 +45,7 @@ declare(strict_types=1);
 					"caption" => "Use authentication",
 					"onChange" => "NTFY_UseAuthentication($id, $UseAuth);"
 				]
-			]
+			];
 
 			return json_encode($form);
 
