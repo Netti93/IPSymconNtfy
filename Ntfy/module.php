@@ -30,9 +30,26 @@ declare(strict_types=1);
 
 		public function GetConfigurationForm()
 		{
-			$useauth = $this->ReadPropertyBoolean('UseAuth');
-			$usetoken = $this->ReadPropertyBoolean('UseToken');
+			//$useauth = $this->ReadPropertyBoolean('UseAuth');
+			//$usetoken = $this->ReadPropertyBoolean('UseToken');
 
+			$form['elements'] = [
+				[
+					"type" => "ValidationTextBox",
+					"name" => "URL",
+					"caption" => "Server URL (required)"
+				],
+				[
+					"type" => "CheckBox",
+					"name" => "UseAuth",
+					"caption" => "Use authentication",
+					"onChange" => "NTFY_UseAuthentication($id, $UseAuth);"
+				]
+			]
+
+			return json_encode($form);
+
+			/*
 			return 
 			'{
 				"elements": [
@@ -57,7 +74,7 @@ declare(strict_types=1);
 					{ "code": 203, "icon": "error", "caption": "Unauthorized" },
 					{ "code": 204, "icon": "error", "caption": "Forbidden" }
 				]
-			}';
+			}';*/
 		}
 
 		public function UseAuthentication(bool $status)
