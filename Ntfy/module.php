@@ -154,11 +154,12 @@ declare(strict_types=1);
                 $postfields['extras'] = $extras;
             }
 			*/
+			$headers = ['Content-Type: text/plain'];
 
             curl_setopt_array($ch = curl_init(), [
                 CURLOPT_URL        => $this->BuildMessageURL($topic),
-                CURLOPT_HTTPHEADER => ['Content-Type: text/plain'],
-                CURLOPT_POST       => true,
+                //CURLOPT_HTTPHEADER => ['Content-Type: text/plain'],
+                //CURLOPT_POST       => true,
                 CURLOPT_POSTFIELDS => $message,
                 CURLOPT_SAFE_UPLOAD    => true,
                 CURLOPT_RETURNTRANSFER => true,
@@ -168,11 +169,12 @@ declare(strict_types=1);
 			{
 				if($this->ReadPropertyBoolean('USETOKEN'))
 				{
-					curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Authorization: Bearer '.$this->ReadPropertyString('TOKEN'));
+					//curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Authorization: Bearer '.$this->ReadPropertyString('TOKEN'));
+					$headers[] = 'Authorization: Bearer '.$this->ReadPropertyString('TOKEN');
 				} 
 				else 
 				{
-					curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+					//curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 					curl_setopt($ch, CURLOPT_USERPWD, $this->ReadPropertyString('USERNAME').':'.$this->ReadPropertyString('PASSWORD'));
 				}
 			}
@@ -180,7 +182,10 @@ declare(strict_types=1);
 			// TODO: set Headers for fields in $extras
 			//curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Title: Dies ist ein Titel');
 
-            $response = curl_exec($ch);
+			echo $headers;
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+			$response = curl_exec($ch);
 
             // Check for errors and display the error message
             if (!$response) {
