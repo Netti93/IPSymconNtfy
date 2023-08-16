@@ -27,7 +27,7 @@ declare(strict_types=1);
 			parent::ApplyChanges();
 		}
 
-		public function ToggleUseToken(boolean $status)
+		public function ToggleUseToken(bool $status)
 		{
 			echo $status;
 			$this->UpdateFormField("TOKEN", "visible", $status);
