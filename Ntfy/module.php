@@ -42,7 +42,7 @@ declare(strict_types=1);
 				[
 					"type" => "CheckBox",
 					"name" => "USEAUTH",
-					"caption" => "Use authentication",
+					"caption" => "Server needs authentication",
 					"onChange" => 'NTFY_UseAuthentication($id, $USEAUTH);'
 				],
 				[
@@ -54,13 +54,13 @@ declare(strict_types=1);
 						[
 							"type" => "CheckBox",
 							"name" => "USETOKEN",
-							"caption" => "Use Token instead of credentials",
+							"caption" => "Use token instead of credentials",
 							"onChange" => 'NTFY_ToggleUseToken($id, $USETOKEN);'
 						],
 						[
 							"type" => "PasswordTextBox",
 							"name" => "TOKEN",
-							"caption" => "Application Token (required)",
+							"caption" => "Access token (required)",
 							"visible" => $usetoken
 						],
 						[
@@ -175,8 +175,6 @@ declare(strict_types=1);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 			$response = curl_exec($ch);
-
-			print_r($response);
 
             // Check for errors and display the error message
             if (!$response) {

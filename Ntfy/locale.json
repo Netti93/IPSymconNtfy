@@ -2,7 +2,10 @@
     "translations": {
         "de": {
             "Server URL (required)": "Server URL (erforderlich)",
-            "Application Token (required)": "App Token (erforderlich)",
+            "Server needs authentication": "Server benötigt Authentifizierung",
+            "Authentication": "Authentifizierung",
+            "Use token instead of credentials": "Token statt Passwort verwenden",
+            "Access token (required)": "Zugriffstoken (erforderlich)",
             "Username (required)": "Benutzername (erforderlich)",
             "Password (required)": "Passwort (erforderlich)",
             "Send test message": "Testnachricht senden",
@@ -10,7 +13,6 @@
             "Invalid URL": "URL fehlerhaft",
             "Unauthorized": "Nicht autorisiert",
             "Forbidden": "Zugriff verboten",
-            "Test message": "Testnachricht",
             "This is a test message from your Symcon instance": "Dies ist eine Testnachricht von Symcon"
         }
     }
