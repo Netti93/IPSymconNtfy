@@ -118,7 +118,7 @@ declare(strict_types=1);
 					"icon" => "error",
 					"caption" => "Forbidden"
 				]
-			]
+			];
 
 			return json_encode($form);
 		}
