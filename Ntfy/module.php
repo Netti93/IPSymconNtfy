@@ -50,7 +50,6 @@ declare(strict_types=1);
 					"name" => "AUTHPANEL",
 					"caption" => "Authentication",
 					"visible" => $useauth,
-					"expanded" => $useauth,
 					"items" => [
 						[
 							"type" => "CheckBox",
@@ -81,39 +80,12 @@ declare(strict_types=1);
 			];
 
 			return json_encode($form);
-
-			/*
-			return 
-			'{
-				"elements": [
-					{ "type": "ValidationTextBox", "name": "URL", "caption": "Server URL (required)" },
-					{ "type": "CheckBox", "name": "UseAuth", "caption": "Use authentication", "onChange": "NTFY_UseAuthentication($id, $UseAuth);" },
-					{ "type": "ExpansionPanel", "name": "AUTHPANEL", "caption": "Authentication", "visible": '.$useauth.', "items":[
-							{ "type": "CheckBox", "name": "UseToken", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $UseToken);" },
-							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": '.$usetoken.' },
-							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.!$usetoken.' },
-							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.!$usetoken.' }
-						]
-					}
-				],
-				"actions": [
-					{ "type": "ValidationTextBox", "name": "TOPIC", "caption": "Topic" },
-					{ "type": "Button", "caption": "Send test message",  "onClick": "if (NTFY_SendTestMessage($id, $TOPIC)) echo \'OK\'; else echo \'Error\';" }
-				],
-				"status": [
-					{ "code": 102, "icon": "active", "caption": "OK" },
-					{ "code": 201, "icon": "error", "caption": "An error occurred - please check the log" },
-					{ "code": 202, "icon": "error", "caption": "Invalid URL" },
-					{ "code": 203, "icon": "error", "caption": "Unauthorized" },
-					{ "code": 204, "icon": "error", "caption": "Forbidden" }
-				]
-			}';*/
 		}
 
 		public function UseAuthentication(bool $status)
 		{
 			$this->UpdateFormField("AUTHPANEL", "visible", $status);
-			//$this->UpdateFormField("AUTHPANEL", "expanded", $status);
+			$this->UpdateFormField("AUTHPANEL", "expanded", $status);
 		}
 
 		public function ToggleUseToken(bool $status)
@@ -150,6 +122,19 @@ declare(strict_types=1);
                 CURLOPT_SAFE_UPLOAD    => true,
                 CURLOPT_RETURNTRANSFER => true,
             ]);
+
+			if($this->ReadPropertyBoolean('USEAUTH'))
+			{
+				if($this->ReadPropertyBoolean('USETOKEN'))
+				{
+					curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Authorization: Bearer '.$this->ReadPropertyString('TOKEN'));
+				} 
+				else 
+				{
+					curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+					curl_setopt($ch, CURLOPT_USERPWD, $this->ReadPropertyString('USERNAME').':'.$this->ReadPropertyString('PASSWORD'));
+				}
+			}
 
 			// TODO: set Headers for fields in $extras
 			//curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Title: Dies ist ein Titel');
