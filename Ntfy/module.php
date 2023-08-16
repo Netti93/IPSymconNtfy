@@ -157,7 +157,7 @@ declare(strict_types=1);
 			{
 				$priority = 1;
 			} 
-			else if ($priotiy > 5)
+			else if ($priority > 5)
 			{
 				$priority = 5;
 			}
