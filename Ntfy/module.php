@@ -30,8 +30,8 @@ declare(strict_types=1);
 
 		public function GetConfigurationForm()
 		{
-			$use_auth = $this->ReadPropertyBoolean('UseAuth');
-			$use_token = $this->ReadPropertyBoolean('UseToken');
+			$use_auth = $this->ReadPropertyBoolean('UseAuth') ?? false;
+			$use_token = $this->ReadPropertyBoolean('UseToken') ?? false;
 
 			return 
 			'{
