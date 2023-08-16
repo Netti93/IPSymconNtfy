@@ -198,11 +198,11 @@ declare(strict_types=1);
                 $this->SetStatus(102);
 
                 return true;
-            } elseif (property_exists($responseObject, 'errorCode') && $responseObject->{'errorCode'} == 404) {
+            } elseif (property_exists($responseObject, 'error') && $responseObject->{'code'} == 404) {
                 $this->SetStatus(202);
-            } elseif (property_exists($responseObject, 'errorCode') && $responseObject->{'errorCode'} == 401) {
+            } elseif (property_exists($responseObject, 'error') && $responseObject->{'code'} == 401) {
                 $this->SetStatus(203);
-            } elseif (property_exists($responseObject, 'errorCode') && $responseObject->{'errorCode'} == 403) {
+            } elseif (property_exists($responseObject, 'error') && $responseObject->{'code'} == 403) {
                 $this->SetStatus(204);
             }
 
