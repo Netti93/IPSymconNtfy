@@ -38,8 +38,8 @@ declare(strict_types=1);
 					{ "type": "ExpansionPanel", "name": "AUTH_PANEL", "caption": "Authentication", "visible": '.$this->ReadPropertyBoolean('USE_AUTH').', "items":[
 							{ "type": "CheckBox", "name": "USE_TOKEN", "caption": "Use Token instead of credentials", "onChange": "NTFY_ToggleUseToken($id, $USE_TOKEN);" },
 							{ "type": "PasswordTextBox", "name": "TOKEN", "caption": "Application Token (required)", "visible": '.$this->ReadPropertyBoolean('USE_TOKEN').' },
-							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.!$this->ReadPropertyBoolean('USE_TOKEN').' },
-							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.!$this->ReadPropertyBoolean('USE_TOKEN').' }
+							{ "type": "ValidationTextBox", "name": "USERNAME", "caption": "Username (required)", "visible": '.$this->ReadPropertyBoolean('USE_TOKEN').' },
+							{ "type": "PasswordTextBox", "name": "PASSWORD", "caption": "Password (required)", "visible": '.$this->ReadPropertyBoolean('USE_TOKEN').' }
 						]
 					}
 				],
