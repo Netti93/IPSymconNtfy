@@ -9,6 +9,7 @@ declare(strict_types=1);
 			parent::Create();
 
             $this->RegisterPropertyString('URL', 'https://ntfy.sh');
+            $this->RegisterPropertyBoolean('USE_AUTH', false);
             $this->RegisterPropertyBoolean('USE_TOKEN', false);
             $this->RegisterPropertyString('TOKEN', '');
             $this->RegisterPropertyString('USERNAME', '');
@@ -27,9 +28,13 @@ declare(strict_types=1);
 			parent::ApplyChanges();
 		}
 
+		public function UseAuthentication(bool $status)
+		{
+			$this->UpdateFormField("AUTH_PANEL", "visible", $status);
+		}
+
 		public function ToggleUseToken(bool $status)
 		{
-			echo $status;
 			$this->UpdateFormField("TOKEN", "visible", $status);
 			$this->UpdateFormField("USERNAME", "visible", !$status);
 			$this->UpdateFormField("PASSWORD", "visible", !$status);
