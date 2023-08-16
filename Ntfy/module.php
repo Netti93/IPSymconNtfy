@@ -9,8 +9,8 @@ declare(strict_types=1);
 			parent::Create();
 
             $this->RegisterPropertyString('URL', 'https://ntfy.sh');
-            $this->RegisterPropertyBoolean('UseAuth', false);
-            $this->RegisterPropertyBoolean('UseToken', false);
+            $this->RegisterPropertyBoolean('USEAUTH', false);
+            $this->RegisterPropertyBoolean('USETOKEN', false);
             $this->RegisterPropertyString('TOKEN', '');
             $this->RegisterPropertyString('USERNAME', '');
             $this->RegisterPropertyString('PASSWORD', '');
@@ -30,8 +30,8 @@ declare(strict_types=1);
 
 		public function GetConfigurationForm()
 		{
-			//$useauth = $this->ReadPropertyBoolean('UseAuth');
-			//$usetoken = $this->ReadPropertyBoolean('UseToken');
+			$useauth = $this->ReadPropertyBoolean('UseAuth');
+			$usetoken = $this->ReadPropertyBoolean('UseToken');
 
 			$form['elements'] = [
 				[
@@ -41,9 +41,41 @@ declare(strict_types=1);
 				],
 				[
 					"type" => "CheckBox",
-					"name" => "UseAuth",
+					"name" => "USEAUTH",
 					"caption" => "Use authentication",
-					"onChange" => '"NTFY_UseAuthentication($id, $UseAuth);"'
+					"onChange" => '"NTFY_UseAuthentication($id, $USEAUTH);"'
+				],
+				[
+					"type" => "ExpansionPanel",
+					"name" => "AUTHPANEL",
+					"caption" => "Authentication",
+					"visible" => $useauth,
+					"items" => [
+						[
+							"type" => "CheckBox",
+							"name" => "USETOKEN",
+							"caption" => "Use Token instead of credentials",
+							"onChange" => '"NTFY_ToggleUseToken($id, $UseToken);"'
+						],
+						[
+							"type" => "PasswordTextBox",
+							"name" => "TOKEN",
+							"caption" => "Application Token (required)",
+							"visible" => $usetoken
+						],
+						[
+							"type" => "ValidationTextBox",
+							"name" => "USERNAME",
+							"caption" => "Username (required)",
+							"visible" => !$usetoken
+						],
+						[
+							"type" => "PasswordTextBox",
+							"name" => "PASSWORD",
+							"caption" => "Password (required)",
+							"visible" => !$usetoken
+						]
+					]
 				]
 			];
 
