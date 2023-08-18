@@ -19,7 +19,7 @@ sendet eine Nachricht an das angegebene Topic. Die Parameter $title und $priorit
 
 Beispiel:
 ```php
-NTFY_SendMessage(12345, 'Symcon', 'Eine Nachricht mit vielen Worten.', 'Der Titel', 3);
+NTFY_SendMessage(12345, 'MeinSymcon', 'Eine Nachricht mit vielen Worten.', 'Der Titel', 3);
 ```
 
 #### Nachricht als JSON senden
@@ -29,7 +29,7 @@ Das Format des $content Parameters muss ein string-indiziertes Array sein.
 
 Beispiel:
 ```php
-NTFY_SendMessageAsJson(12345, 'Symcon', array("message" => "Eine Nachricht mit Tags", "title" => "Der Titel", "tags" => "partying_face,tada"));
+NTFY_SendMessageAsJson(12345, 'MeinSymcon', array("message" => "Eine Nachricht mit Tags", "title" => "Der Titel", "tags" => ["partying_face,tada"]));
 ```
 
 #### Nachricht mit HTTP Headern senden
@@ -39,7 +39,7 @@ Das Format des $headers Parameters muss ein string Array sein.
 
 Beispiel:
 ```php
-NTFY_SendMessageWithHeaders(12345, 'Symcon', 'Eine sehr wichtige Nachricht mit Titel.', array("X-Title: Der Titel", "X-Priority: 5"));
+NTFY_SendMessageWithHeaders(12345, 'MeinSymcon', 'Eine sehr wichtige Nachricht mit Titel.', array("X-Title: Der Titel", "X-Priority: 5"));
 ```
 
 #### Testnachricht senden
