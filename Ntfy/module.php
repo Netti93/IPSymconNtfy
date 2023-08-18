@@ -166,6 +166,8 @@ declare(strict_types=1);
 			
 			$content['topic'] = $topic;
 
+			print_r($content);
+
 			return $this->SendMessageWithHeaders("", json_encode($content), $headers);
 		}
 
