@@ -146,16 +146,6 @@ declare(strict_types=1);
             return $this->SendMessage($topic, $this->Translate('This is a test message from your Symcon instance'), $this->Translate('Test'));
         }
 
-		public function SendMessage(string $topic, string $message)
-		{
-			return $this->SendMessage($topic, $message);
-		}
-
-		public function SendMessage(string $topic, string $message, string $title)
-		{
-			return $this->SendMessage($topic, $message, $title);
-		}
-
 		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
 		{
 			$headers = [];
