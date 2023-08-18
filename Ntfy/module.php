@@ -146,6 +146,21 @@ declare(strict_types=1);
             return $this->SendMessage($topic, $this->Translate('This is a test message from your Symcon instance'), $this->Translate('Test'));
         }
 
+		public function SendMessage(string $topic, string $message)
+		{
+			return $this->SendMessage($topic, $message);
+		}
+
+		public function SendMessage(string $topic, string $message, string $title)
+		{
+			return $this->SendMessage($topic, $message, $title);
+		}
+
+		public function SendMessage(string $topic, string $message, int $priority)
+		{
+			return $this->SendMessage($topic, $message, "", $priority);
+		}
+
 		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
 		{
 			$headers = [];
@@ -157,6 +172,15 @@ declare(strict_types=1);
 			$headers[] = "Priority: $priority";
 
 			return $this->SendMessageWithHeaders($topic, $message, $headers);
+		}
+
+		public function SendMessageAsJson(string $topic, array $extras = [])
+		{
+			$headers = ["Content-Type: application/json"];
+			
+			$extras['topic'] = $topic;
+
+			return $this->SendMessageWithHeaders("", json_encode($extras), $headers);
 		}
 
         public function SendMessageWithHeaders(string $topic, string $message, array $headers = [])
@@ -216,21 +240,4 @@ declare(strict_types=1);
 
             return false;
         }
-
-		public function SendMessageAsJson(string $topic, array $extras = [])
-		{
-			$headers = ["Content-Type: application/json"];
-			
-			$extras['topic'] = $topic;
-
-			return $this->SendMessageWithHeaders("", $extras, $headers);
-			
-			//$content = ["topic" => $topic];
-
-			//$content['message'] = array_key_exists('message', $extras) ? $extras['message'] : 'triggered';
-
-			//$title = array_key_exists('message', $extras) ? $extras['title'] : null;
-
-			//return $this->SendMessageWithHeaders("", $content, $headers);
-		}
 	}
