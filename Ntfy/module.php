@@ -143,16 +143,17 @@ declare(strict_types=1);
 
         public function SendTestMessage(string $topic)
         {
-            return $this->SendMessageWithExtras($topic, $this->Translate('This is a test message from your Symcon instance'));
+            return $this->SendMessageWithHeaders($topic, $this->Translate('This is a test message from your Symcon instance'));
         }
 
 		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
 		{
-			return $this->SendMessageWithExtras($topic, $message, $title, $priority);
+			return $this->SendMessageWithHeaders($topic, $message, $title, $priority);
 		}
 
-        public function SendMessageWithExtras(string $topic, string $message, string $title = "", int $priority = 3, array $extras = [])
+        public function SendMessageWithHeaders(string $topic, string $message, string $title = "", int $priority = 3, array $headers = [])
         {
+			/*
 			if($priority < 1)
 			{
 				$priority = 1;
@@ -161,11 +162,18 @@ declare(strict_types=1);
 			{
 				$priority = 5;
 			}
+			*/
 
+			/*
 			$headers = [
 				"Content-Type: text/plain",
 				"Priority: $priority"
 			];
+			*/
+			
+			// add Content-Type header
+			$headers[] = "Content-Type: text/plain";
+			print_r(json_decode($headers));
 
             curl_setopt_array($ch = curl_init(), [
                 CURLOPT_URL        => $this->BuildMessageURL($topic),
@@ -186,9 +194,11 @@ declare(strict_types=1);
 				}
 			}
 
+			/*
 			if($title !== "") {
 				$headers[] = "Title: $title";
 			}
+			*/
 
 			// TODO: set Headers for fields in $extras
 			//curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Title: Dies ist ein Titel');
