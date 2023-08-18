@@ -160,13 +160,13 @@ declare(strict_types=1);
 			return $this->SendMessageWithHeaders($topic, $message, $headers);
 		}
 
-		public function SendMessageAsJson(string $topic, array $extras = [])
+		public function SendMessageAsJson(string $topic, array $content = [])
 		{
 			$headers = ["Content-Type: application/json"];
 			
-			$extras['topic'] = $topic;
+			$content['topic'] = $topic;
 
-			return $this->SendMessageWithHeaders("", json_encode($extras), $headers);
+			return $this->SendMessageWithHeaders("", json_encode($content), $headers);
 		}
 
         public function SendMessageWithHeaders(string $topic, string $message, array $headers = [])
