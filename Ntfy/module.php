@@ -173,7 +173,7 @@ declare(strict_types=1);
 			
 			// add Content-Type header
 			$headers[] = "Content-Type: text/plain";
-			print_r(json_decode($headers));
+			print_r(json_encode($headers));
 
             curl_setopt_array($ch = curl_init(), [
                 CURLOPT_URL        => $this->BuildMessageURL($topic),
