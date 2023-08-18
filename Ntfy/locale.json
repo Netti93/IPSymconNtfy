@@ -13,6 +13,7 @@
             "Invalid URL": "URL fehlerhaft",
             "Unauthorized": "Nicht autorisiert",
             "Forbidden": "Zugriff verboten",
+            "Test": "Test",
             "This is a test message from your Symcon instance": "Dies ist eine Testnachricht von Symcon"
         }
     }

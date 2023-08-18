@@ -143,38 +143,24 @@ declare(strict_types=1);
 
         public function SendTestMessage(string $topic)
         {
-            return $this->SendMessageWithHeaders($topic, $this->Translate('This is a test message from your Symcon instance'));
+            return $this->SendMessage($topic, $this->Translate('This is a test message from your Symcon instance'), $this->Translate('Test'));
         }
 
 		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
 		{
-			return $this->SendMessageWithHeaders($topic, $message, $title, $priority);
+			$headers = [];
+
+			if($title !== "") {
+				$headers[] = "Title: $title";
+			}
+
+			$headers[] = "Priority: $priority";
+
+			return $this->SendMessageWithHeaders($topic, $message, $headers);
 		}
 
-        public function SendMessageWithHeaders(string $topic, string $message, string $title = "", int $priority = 3, array $headers = [])
+        public function SendMessageWithHeaders(string $topic, string $message, array $headers = ["Content-Type: text/plain"])
         {
-			/*
-			if($priority < 1)
-			{
-				$priority = 1;
-			} 
-			else if ($priority > 5)
-			{
-				$priority = 5;
-			}
-			*/
-
-			/*
-			$headers = [
-				"Content-Type: text/plain",
-				"Priority: $priority"
-			];
-			*/
-			
-			// add Content-Type header
-			$headers[] = "Content-Type: text/plain";
-			print_r(json_encode($headers));
-
             curl_setopt_array($ch = curl_init(), [
                 CURLOPT_URL        => $this->BuildMessageURL($topic),
                 CURLOPT_POSTFIELDS => $message,
@@ -193,15 +179,6 @@ declare(strict_types=1);
 					curl_setopt($ch, CURLOPT_USERPWD, $this->ReadPropertyString('USERNAME').':'.$this->ReadPropertyString('PASSWORD'));
 				}
 			}
-
-			/*
-			if($title !== "") {
-				$headers[] = "Title: $title";
-			}
-			*/
-
-			// TODO: set Headers for fields in $extras
-			//curl_setopt($ch, CURLOPT_HTTPHEADER[], 'Title: Dies ist ein Titel');
 
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
