@@ -148,13 +148,14 @@ declare(strict_types=1);
 
 		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
 		{
-			$headers = [];
+			$headers = [
+				"Content-Type: text/markdown",
+				"Priority: $priority"
+			];
 
 			if($title !== "") {
 				$headers[] = "Title: $title";
 			}
-
-			$headers[] = "Priority: $priority";
 
 			return $this->SendMessageWithHeaders($topic, $message, $headers);
 		}
