@@ -156,11 +156,6 @@ declare(strict_types=1);
 			return $this->SendMessage($topic, $message, $title);
 		}
 
-		public function SendMessage(string $topic, string $message, int $priority)
-		{
-			return $this->SendMessage($topic, $message, "", $priority);
-		}
-
 		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
 		{
 			$headers = [];
