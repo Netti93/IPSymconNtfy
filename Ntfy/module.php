@@ -159,7 +159,7 @@ declare(strict_types=1);
 			return $this->SendMessageWithHeaders($topic, $message, $headers);
 		}
 
-        public function SendMessageWithHeaders(string $topic, string $message, array $headers = ["Content-Type: text/plain"])
+        public function SendMessageWithHeaders(string $topic, string $message, array $headers = [])
         {
             curl_setopt_array($ch = curl_init(), [
                 CURLOPT_URL        => $this->BuildMessageURL($topic),
@@ -216,4 +216,21 @@ declare(strict_types=1);
 
             return false;
         }
+
+		public function SendMessageAsJson(string $topic, array $extras = [])
+		{
+			$headers = ["Content-Type: application/json"];
+			
+			$extras['topic'] = $topic;
+
+			return $this->SendMessageWithHeaders("", $extras, $headers);
+			
+			//$content = ["topic" => $topic];
+
+			//$content['message'] = array_key_exists('message', $extras) ? $extras['message'] : 'triggered';
+
+			//$title = array_key_exists('message', $extras) ? $extras['title'] : null;
+
+			//return $this->SendMessageWithHeaders("", $content, $headers);
+		}
 	}
