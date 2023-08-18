@@ -141,7 +141,7 @@ declare(strict_types=1);
             return rtrim($this->ReadPropertyString('URL'), '/').'/'.$topic;
         }
 
-        private function SendTestMessage(string $topic)
+        public function SendTestMessage(string $topic)
         {
             return $this->SendMessage($topic, $this->Translate('This is a test message from your Symcon instance'), $this->Translate('Test'));
         }
