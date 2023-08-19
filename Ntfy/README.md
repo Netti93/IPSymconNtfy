@@ -1,67 +1,47 @@
 # Ntfy
-Beschreibung des Moduls.
 
-### Inhaltsverzeichnis
+### 1. Konfiguration
 
-1. [Funktionsumfang](#1-funktionsumfang)
-2. [Voraussetzungen](#2-voraussetzungen)
-3. [Software-Installation](#3-software-installation)
-4. [Einrichten der Instanzen in IP-Symcon](#4-einrichten-der-instanzen-in-ip-symcon)
-5. [Statusvariablen und Profile](#5-statusvariablen-und-profile)
-6. [WebFront](#6-webfront)
-7. [PHP-Befehlsreferenz](#7-php-befehlsreferenz)
+| Name                                 | Typ       | Beschreibung                                                                            |
+| :----------------------------------: | :-------: | :-------------------------------------------------------------------------------------: |
+| Server URL                           | string    | URL des Ntfy-Servers                                                                    |
+| Server benötigt Authentifizierung    | bool      | Aktivieren, wenn der Server / das Topic eine Authentifizierung voraussetzt              |
+| Benutzername                         | string    | Benutzername auf Ntfy-Server                                                            |
+| Passwort                             | string    | Passwort des Ntfy-Benutzers                                                             |
+| Token statt Passwort verwenden       | bool      | Aktivieren, wenn statt Benutzername & Passwort ein Zugriffstoken verwendet werden soll  |
+| Zugriffstoken                        | string    | App-Token zur Authentifizierung                                                         |
 
-### 1. Funktionsumfang
+### 2. Funktionsreferenz
 
-*
-
-### 2. Voraussetzungen
-
-- IP-Symcon ab Version 5.3
-
-### 3. Software-Installation
-
-* Über den Module Store das 'Ntfy'-Modul installieren.
-* Alternativ über das Module Control folgende URL hinzufügen
-
-### 4. Einrichten der Instanzen in IP-Symcon
-
- Unter 'Instanz hinzufügen' kann das 'Ntfy'-Modul mithilfe des Schnellfilters gefunden werden.  
-	- Weitere Informationen zum Hinzufügen von Instanzen in der [Dokumentation der Instanzen](https://www.symcon.de/service/dokumentation/konzepte/instanzen/#Instanz_hinzufügen)
-
-__Konfigurationsseite__:
-
-Name     | Beschreibung
--------- | ------------------
-         |
-         |
-
-### 5. Statusvariablen und Profile
-
-Die Statusvariablen/Kategorien werden automatisch angelegt. Das Löschen einzelner kann zu Fehlfunktionen führen.
-
-#### Statusvariablen
-
-Name   | Typ     | Beschreibung
------- | ------- | ------------
-       |         |
-       |         |
-
-#### Profile
-
-Name   | Typ
------- | -------
-       |
-       |
-
-### 6. WebFront
-
-Die Funktionalität, die das Modul im WebFront bietet.
-
-### 7. PHP-Befehlsreferenz
-
-`boolean NTFY_BeispielFunktion(integer $InstanzID);`
-Erklärung der Funktion.
+#### Nachricht senden
+`boolean NTFY_SendMessage(integer $InstanzID, string $topic, string $message, string $title, integer $priority);`  
+sendet eine Nachricht an das angegebene Topic. Die Parameter $title und $priority sind optional. Mehr Infos können in der [Dokumentation](https://docs.ntfy.sh/publish/) gefunden werden.
 
 Beispiel:
-`NTFY_BeispielFunktion(12345);`
+```php
+NTFY_SendMessage(12345, 'MeinSymcon', 'Eine Nachricht mit vielen Worten.', 'Der Titel', 3);
+```
+
+#### Nachricht als JSON senden
+`boolean NTFY_SendMessageAsJson(integer $InstanzID, string $topic, array $content);`  
+sendet eine Nachricht an das angegebene Topic im JSON-Format. Eine Liste der verfügbaren Parameter kann [hier](https://docs.ntfy.sh/publish/#publish-as-json) gefunden werden.
+Das Format des $content Parameters muss ein string-indiziertes Array sein.
+
+Beispiel:
+```php
+NTFY_SendMessageAsJson(12345, 'MeinSymcon', array("message" => "Eine Nachricht mit Tags", "title" => "Der Titel", "tags" => ["partying_face,tada"]));
+```
+
+#### Nachricht mit HTTP Headern senden
+`boolean NTFY_SendMessageWithHeaders(integer $InstanzID, string $topic, string $message, array $headers);`  
+sendet eine Nachricht an das angegebene Topic mit zusätzlichen Headern wie z.B. X-Title. Eine Liste der verfügbaren Parameter kann [hier](https://docs.ntfy.sh/publish/#list-of-all-parameters) gefunden werden.
+Das Format des $headers Parameters muss ein string Array sein.
+
+Beispiel:
+```php
+NTFY_SendMessageWithHeaders(12345, 'MeinSymcon', 'Eine sehr wichtige Nachricht mit Titel.', array("X-Title: Der Titel", "X-Priority: 5"));
+```
+
+#### Testnachricht senden
+`boolen NTFY_SendTestMessage(integer $InstanzID, string $topic);`  
+sendet eine vordefinierte Testnachricht an das angegebene Topic. Diese Funktion wird auf der Konfigurationsseite vom Button "Sende Testnachricht" verwendet.
