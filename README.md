@@ -60,3 +60,5 @@ Verweise:
 
 - 1.0 @ 18.08.2023
   - Initiale Version
+- 1.1 @ 16.04.2026
+  - Fix für CompatibilityDeprecation wegen curl_close()

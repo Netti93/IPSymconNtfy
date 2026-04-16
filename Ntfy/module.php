@@ -88,7 +88,7 @@ declare(strict_types=1);
 				[
 					"type" => "Button",
 					"caption" => "Send test message",
-					"onClick" => 'if (NTFY_SendTestMessage($id, $TOPIC)) echo "OK"; else echo "Error";'
+					"onClick" => 'echo NTFY_SendTestMessage($id, $TOPIC);'
 				]
 			];
 
@@ -141,9 +141,17 @@ declare(strict_types=1);
             return rtrim($this->ReadPropertyString('URL'), '/').'/'.$topic;
         }
 
-        public function SendTestMessage(string $topic)
-        {
-            return $this->SendMessage($topic, $this->Translate('This is a test message from your Symcon instance'), $this->Translate('Test'));
+        public function SendTestMessage(string $topic): string
+        {			
+			if($topic === null || strlen(trim($topic)) == 0) {
+				return $this->Translate('Topic cannot be empty.');
+            }
+
+			if ($this->SendMessage($topic, $this->Translate('This is a test message from your Symcon instance'), $this->Translate('Test'))) {
+				return "OK";
+			} else {
+				return $this->Translate("An error occurred - please check the log");
+			}
         }
 
 		public function SendMessage(string $topic, string $message, string $title = "", int $priority = 3)
@@ -173,6 +181,11 @@ declare(strict_types=1);
 
         public function SendMessageWithHeaders(string $topic, string $message, array $headers = [])
         {
+			if($topic === null || strlen(trim($topic)) == 0) {
+            	$this->LogMessage('SendMessageWithHeaders: '.$this->Translate('Topic cannot be empty.'), KL_ERROR);
+				return false;
+            }
+
             curl_setopt_array($ch = curl_init(), [
                 CURLOPT_URL        => $this->BuildMessageURL($topic),
                 CURLOPT_POSTFIELDS => $message,
@@ -209,7 +222,11 @@ declare(strict_types=1);
                 return false;
             }
 
-            curl_close($ch);
+            if (PHP_VERSION_ID >= 80000) {
+                unset($ch);
+            } else {
+                curl_close($ch);
+            }
 
             $responseObject = json_decode($response);
             if (property_exists($responseObject, 'id')) {

@@ -14,7 +14,8 @@
             "Unauthorized": "Nicht autorisiert",
             "Forbidden": "Zugriff verboten",
             "Test": "Test",
-            "This is a test message from your Symcon instance": "Dies ist eine Testnachricht von Symcon"
+            "This is a test message from your Symcon instance": "Dies ist eine Testnachricht von Symcon",
+            "Topic cannot be empty.": "Topic darf nicht leer sein."
         }
     }
 }
